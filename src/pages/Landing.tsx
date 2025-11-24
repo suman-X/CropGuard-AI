@@ -5,12 +5,19 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link } from "react-router-dom";
 
 const Landing = () => {
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black">
             {/* Header */}
             <header className="border-b border-zinc-800 bg-black/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
                 <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2 group cursor-pointer">
+                    <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                         <div className="p-2 bg-white rounded-full group-hover:scale-110 transition-transform duration-300">
                             <Leaf className="h-5 w-5 text-black" />
                         </div>
@@ -20,13 +27,13 @@ const Landing = () => {
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center gap-8">
                         {['Features', 'How it Works', 'About'].map((item) => (
-                            <a
+                            <button
                                 key={item}
-                                href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                                onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, '-'))}
                                 className="text-sm font-medium text-zinc-400 hover:text-zinc-100 transition-colors relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[1px] after:bg-white after:transition-all after:duration-300 hover:after:w-full"
                             >
                                 {item}
-                            </a>
+                            </button>
                         ))}
                     </nav>
 
@@ -49,13 +56,13 @@ const Landing = () => {
                                     <div className="flex flex-col gap-8 mt-8">
                                         <nav className="flex flex-col gap-6">
                                             {['Features', 'How it Works', 'About'].map((item) => (
-                                                <a
+                                                <button
                                                     key={item}
-                                                    href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                                                    className="text-lg font-medium text-zinc-400 hover:text-zinc-100 transition-colors"
+                                                    onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, '-'))}
+                                                    className="text-lg font-medium text-zinc-400 hover:text-zinc-100 transition-colors text-left"
                                                 >
                                                     {item}
-                                                </a>
+                                                </button>
                                             ))}
                                         </nav>
                                         <Link to="/app">
@@ -282,7 +289,7 @@ const Landing = () => {
                     </div>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 };
 
